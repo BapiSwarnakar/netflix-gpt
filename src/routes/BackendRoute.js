@@ -1,6 +1,8 @@
 import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import Login from '../backend/login/Login';
+import BackendMain from '../backend/layout/BackendMain';
+import Dashboard from '../backend/dashboard/Dashboard';
 
 
 
@@ -11,6 +13,11 @@ const BackendRoute = () => {
             path: '/admin',
             element: <Login />,
             id: 'admin-login'
+        },
+        {
+            path: '/dashboard',
+            element: <BackendMain element={<Dashboard/>} />,
+            id: 'dashboard'
         }
     ]);
 
