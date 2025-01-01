@@ -1,7 +1,42 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../../utils/firebase';
 
 const Signup = () => {
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    createUserWithEmailAndPassword(auth, formData.email, formData.password)
+    .then((userCredential) => {
+      // Signed up 
+      const user = userCredential.user;
+      console.log("User signed up:", user);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(errorMessage + " - " + errorCode);
+    });
+  };
+
+  
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -16,7 +51,7 @@ const Signup = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form action="#" method="POST" className="space-y-6">
+        <form onSubmit={handleSubmit} method="POST" className="space-y-6">
         <div>
             <label
               htmlFor="email"
@@ -29,6 +64,7 @@ const Signup = () => {
                 id="name"
                 name="name"
                 type="text"
+                onChange={handleChange}
                 required
                 autoComplete="false"
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
@@ -47,6 +83,7 @@ const Signup = () => {
                 id="email"
                 name="email"
                 type="email"
+                onChange={handleChange}
                 required
                 autoComplete="email"
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
@@ -69,6 +106,7 @@ const Signup = () => {
                 id="password"
                 name="password"
                 type="password"
+                onChange={handleChange}
                 required
                 autoComplete="current-password"
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
