@@ -2,8 +2,12 @@ import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -22,10 +26,7 @@ const Login = () => {
     console.log("Form submitted:", formData);
     signInWithEmailAndPassword(auth, formData.email, formData.password)
     .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      console.log("User signed in:", user);
-      // ...
+      navigate("/dashboard");
     })
     .catch((error) => {
       const errorCode = error.code;

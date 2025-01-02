@@ -1,7 +1,15 @@
 import React, {useState, useRef, useEffect} from "react";
 import { Menu, Bell, Search, User, Key, Settings, LogOut } from "lucide-react";
+import { Link } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../../utils/firebase";
+import { useNavigate } from "react-router-dom";
 
 const BackendHeader = (props) => {
+
+  const navigate = useNavigate();
+
+
   const { sidebarToggle } = props;
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const profileDropdownRef = useRef(null);
@@ -21,8 +29,16 @@ const BackendHeader = (props) => {
     { icon: User, text: 'My Profile', path: '/profile' },
     { icon: Key, text: 'Change Password', path: '/change-password' },
     { icon: Settings, text: 'Settings', path: '/settings' },
-    { icon: LogOut, text: 'Logout', path: '/logout', className: 'text-red-500 hover:bg-red-50' }
   ];
+
+  const logoutHandler = () => {
+    signOut(auth).then(() => {
+      navigate("/login");
+    }).catch((error) => {
+      alert(error.message);
+    });
+  }
+
   return (
     <header className="bg-white shadow-sm">
       <div className="flex items-center justify-between h-16 px-4">
@@ -67,15 +83,24 @@ const BackendHeader = (props) => {
                   <p className="text-xs text-gray-500">john.doe@example.com</p>
                 </div>
                 {profileMenuItems.map((item, index) => (
-                  <a
+                  <Link
                     key={index}
-                    href={item.path}
+                    to={item.path}
                     className={`flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 ${item.className || ''}`}
                   >
                     <item.icon className="w-4 h-4 mr-3" />
                     {item.text}
-                  </a>
+                  </Link>
                 ))}
+                <Link
+                    key="logout"
+                    to=""
+                    onClick={logoutHandler}
+                    className={`flex items-center px-4 py-2 text-sm hover:bg-gray-50 text-red-500`}
+                  >
+                    <LogOut className="w-4 h-4 mr-3" />
+                    Logout
+                  </Link>
               </div>
             )}
           </div>

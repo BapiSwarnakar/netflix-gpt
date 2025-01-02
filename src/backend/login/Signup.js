@@ -1,9 +1,15 @@
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../../utils/firebase';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../../utils/slice/UserSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -27,6 +33,8 @@ const Signup = () => {
       // Signed up 
       const user = userCredential.user;
       console.log("User signed up:", user);
+      updateName(formData.name);
+      navigate("/dashboard");
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -35,6 +43,17 @@ const Signup = () => {
     });
   };
 
+  const updateName = (name) => { 
+    updateProfile(auth.currentUser, {
+      displayName: name , photoURL: "https://fastly.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U"
+    }).then(() => {
+      console.log("Name updated");
+      const { displayName, email, uid, photoURL } = auth.currentUser;
+      dispatch(addUser({ displayName, email, uid, photoURL }));
+    }).catch((error) => {
+      alert(error.message);
+    });
+  }
   
 
   return (
