@@ -1,7 +1,10 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Link } from 'react-router-dom'
-
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Link, useNavigate } from 'react-router-dom'
+import STechLogo from '../../assets/images/STechRemovebg.png';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from '../../utils/firebase';
+import { useEffect } from 'react';
 const user = {
   name: 'Tom Cook',
   email: 'tom@example.com',
@@ -9,33 +12,51 @@ const user = {
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
 const navigation = [
-  { name: 'Home', href: '#', current: true },
-  { name: 'About', href: '#', current: false },
-  { name: 'Service', href: '#', current: false },
-  { name: 'Contact', href: '#', current: false },
-  { name: 'Login', href: '/login', current: false },
+  // { name: 'Home', href: '#', current: true },
+  // { name: 'About', href: '#', current: false },
+  // { name: 'Service', href: '#', current: false },
+  // { name: 'Contact', href: '#', current: false },
+  // { name: 'Login', href: '/login', current: false },
 ]
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
   { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
 ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
-
  const  FrontendHeader = ()  => {
+  
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    signOut(auth).then(() => {
+      // navigate("/login");
+      console.log("User logged out");
+    }).catch((error) => {
+      alert(error.message);
+    });
+  }
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate("/");
+      }
+    });
+  },[navigate]);
+
   return (
-      <Disclosure as="nav" className="bg-gray-800">
+      <Disclosure as="nav" className="bg-red-600">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center">
               <div className="shrink-0">
                 <img
-                  alt="Your Company"
-                  src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
-                  className="size-8"
+                  alt="STech Solution"
+                  src={STechLogo}
+                  className="size-20"
                 />
               </div>
               <div className="hidden md:block">
@@ -46,7 +67,7 @@ function classNames(...classes) {
                       to={item.href}
                       aria-current={item.current ? 'page' : undefined}
                       className={classNames(
-                        item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                        item.current ? 'bg-red-900 text-white' : 'text-gray-300 hover:bg-red-700 hover:text-white',
                         'rounded-md px-3 py-2 text-sm font-medium',
                       )}
                     >
@@ -58,19 +79,11 @@ function classNames(...classes) {
             </div>
             <div className="hidden md:block">
               <div className="ml-4 flex items-center md:ml-6">
-                <button
-                  type="button"
-                  className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon aria-hidden="true" className="size-6" />
-                </button>
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
-                    <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <MenuButton className="relative flex max-w-xs items-center rounded-full bg-red-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-800">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
                       <img alt="" src={user.imageUrl} className="size-8 rounded-full" />
@@ -82,21 +95,30 @@ function classNames(...classes) {
                   >
                     {userNavigation.map((item) => (
                       <MenuItem key={item.name}>
-                        <a
+                        <Link
                           href={item.href}
                           className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
                         >
                           {item.name}
-                        </a>
+                        </Link>
                       </MenuItem>
                     ))}
+                    <MenuItem key="sign-out">
+                      <Link
+                            to="#"
+                            onClick={logoutHandler}
+                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
+                          >
+                            Sign out
+                      </Link>
+                    </MenuItem>
                   </MenuItems>
                 </Menu>
               </div>
             </div>
             <div className="-mr-2 flex md:hidden">
               {/* Mobile menu button */}
-              <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+              <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md bg-red-800 p-2 text-gray-400 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 <span className="absolute -inset-0.5" />
                 <span className="sr-only">Open main menu</span>
                 <Bars3Icon aria-hidden="true" className="block size-6 group-data-[open]:hidden" />
@@ -132,14 +154,7 @@ function classNames(...classes) {
                 <div className="text-base/5 font-medium text-white">{user.name}</div>
                 <div className="text-sm font-medium text-gray-400">{user.email}</div>
               </div>
-              <button
-                type="button"
-                className="relative ml-auto shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-              >
-                <span className="absolute -inset-1.5" />
-                <span className="sr-only">View notifications</span>
-                <BellIcon aria-hidden="true" className="size-6" />
-              </button>
+             
             </div>
             <div className="mt-3 space-y-1 px-2">
               {userNavigation.map((item) => (
@@ -152,6 +167,14 @@ function classNames(...classes) {
                   {item.name}
                 </DisclosureButton>
               ))}
+              <DisclosureButton
+                  key="sign-out"
+                  as="a"
+                  onClick={logoutHandler}
+                  className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                >
+                  Sign out
+                </DisclosureButton>
             </div>
           </div>
         </DisclosurePanel>

@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../utils/firebase';
 import { useDispatch } from 'react-redux';
-import { addUser, removeUser } from '../utils/slice/UserSlice';
+import { addUser, removeUser } from '../utils/slice/userSlice';
 
 const SetRoute = () => {
 
@@ -19,7 +19,7 @@ const SetRoute = () => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const { displayName, email, uid, photoURL } = user;
-                dispatch(addUser({ displayName, email, uid, photoURL }));
+                dispatch(addUser({ displayName : displayName, email : email, uid : uid, photoURL: photoURL }));
             } else {
                 dispatch(removeUser());
             }

@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/firebase";
 import { useNavigate } from "react-router-dom";
-const Login = () => {
+import backgroundImage from "../../assets/images/background.jpg";
+const FrontendLogin = () => {
 
   const navigate = useNavigate();
 
@@ -49,13 +50,16 @@ const Login = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigate("/admin/dashboard");
+        navigate("/browse");
       }
     });
   },[navigate]);
 
   const backgroundStyle = {
-    backgroundColor: 'black',
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
     height: '100vh',
     width: '100%',
   }
@@ -63,11 +67,7 @@ const Login = () => {
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8" style={backgroundStyle}>
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
-          alt="Your Company"
-          src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
-          className="mx-auto h-10 w-auto"
-        />
+        
         <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">
           Sign in to your account
         </h2>
@@ -127,7 +127,7 @@ const Login = () => {
           Not a member?{" "}
           <Link
             to="/signup"
-            className="font-semibold text-red-700 hover:text-indigo-500"
+            className="font-semibold text-red-700 hover:text-red-500"
           >
             Signup now
           </Link>
@@ -137,4 +137,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default FrontendLogin;

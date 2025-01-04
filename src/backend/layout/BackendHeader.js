@@ -1,14 +1,16 @@
 import React, {useState, useRef, useEffect} from "react";
 import { Menu, Bell, Search, User, Key, Settings, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../utils/firebase";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const BackendHeader = (props) => {
 
   const navigate = useNavigate();
-
+  const user = useSelector((state) => state.user);
+  console.log("User:", user);
 
   const { sidebarToggle } = props;
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
@@ -33,11 +35,20 @@ const BackendHeader = (props) => {
 
   const logoutHandler = () => {
     signOut(auth).then(() => {
-      navigate("/login");
+      // navigate("/login");
+      console.log("User logged out");
     }).catch((error) => {
       alert(error.message);
     });
   }
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate("/admin/login");
+      }
+    });
+  },[navigate]);
 
   return (
     <header className="bg-white shadow-sm">
@@ -71,7 +82,7 @@ const BackendHeader = (props) => {
             <div className="flex items-center space-x-3 cursor-pointer"
                   onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}>
               <div className="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center text-white text-sm font-medium hover:bg-gray-600 transition-colors">
-                JD
+                <img className="w-8 h-8 rounded-full" src={user?.photoURL} alt={user?.displayName || 'User profile picture'} />
               </div>
             </div>
 
@@ -79,8 +90,8 @@ const BackendHeader = (props) => {
             {profileDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-50 border border-gray-100">
                 <div className="px-4 py-2 border-b border-gray-100">
-                  <p className="text-sm font-semibold">John Doe</p>
-                  <p className="text-xs text-gray-500">john.doe@example.com</p>
+                  <p className="text-sm font-semibold">{user?.displayName}</p>
+                  <p className="text-xs text-gray-500">{user?.email}</p>
                 </div>
                 {profileMenuItems.map((item, index) => (
                   <Link

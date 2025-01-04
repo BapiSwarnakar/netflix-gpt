@@ -1,9 +1,9 @@
 import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
+import FrontendLogin from '../frontend/login/FrontendLogin';
+import FrontendSignup from '../frontend/login/FrontendSignup';
 import FrontendMain from '../frontend/layout/FrontendMain';
-import FrontendIndex from '../frontend/FrontendIndex';
-import Signup from '../backend/login/Signup';
-import Login from '../backend/login/Login';
+import Browse from '../frontend/dashboard/Browse';
 
 
 
@@ -12,18 +12,18 @@ const FrontendRoute = () => {
     const browserRouter = createBrowserRouter([
         {
             path: '/',
-            element: <FrontendMain element={<FrontendIndex />} />,
+            element: <FrontendLogin />,
             id: 'index'
         },
         {
-            path: '/login',
-            element: <Login />,
-            id: 'login'
+            path: '/signup',
+            element:  <FrontendSignup />,
+            id: 'signup'
         },
         {
-            path: '/signup',
-            element:  <Signup />,
-            id: 'signup'
+            path: '/browse',
+            element:  <FrontendMain element={<Browse/>} />,
+            id: 'browse'
         }
     ]);
 
