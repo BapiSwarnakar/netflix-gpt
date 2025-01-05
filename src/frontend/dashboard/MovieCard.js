@@ -2,7 +2,6 @@ import { Play, Info, Star } from 'lucide-react';
 
 const MovieCard = (props) => {
     const { movie } = props;
-    console.log(movie);
     return (
       <div className="group/item relative flex-none transition-all duration-300 ease-in-out w-32">
         {/* Base Card */}

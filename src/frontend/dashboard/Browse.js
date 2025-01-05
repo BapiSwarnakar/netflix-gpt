@@ -1,21 +1,20 @@
 import React from 'react';
 import useNowPlayingMovies from '../../hooks/useNowPlayingMovies';
 import HeroSection from './HeroSection';
-import { useSelector } from 'react-redux';
-import MovieSlider from './MovieSlider';
+import MovieSection from './MovieSection';
+import usePopularMovies from '../../hooks/usePopularMovies';
+import useTopRatedMovies from '../../hooks/useTopRatedMovies';
+import useUpcomingMovies from '../../hooks/useUpcomingMovies';
 
 const Browse = () => {
   useNowPlayingMovies();
-  const nowPlayingMovies = useSelector((state) => state.movies?.nowPlayingMovies);
-  if(!nowPlayingMovies) return null;
+  usePopularMovies();
+  useTopRatedMovies();
+  useUpcomingMovies();
   return (
     <>
       <HeroSection />
-      <MovieSlider title = "Now Playing Movies" movies = {nowPlayingMovies}/>
-      <MovieSlider title = "Top Movies" movies = {nowPlayingMovies}/>
-      <MovieSlider title = "Trending Movies" movies = {nowPlayingMovies}/>
-      <MovieSlider title = "Horror Movies" movies = {nowPlayingMovies}/>
-
+      <MovieSection />
     </>
   )
 }

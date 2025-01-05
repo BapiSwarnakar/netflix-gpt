@@ -1,11 +1,12 @@
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
-import { Link, useNavigate } from 'react-router-dom'
-import STechLogo from '../../assets/images/STechRemovebg.png';
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { auth } from '../../utils/firebase';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import STechLogo from '../../assets/images/STechRemovebg.png';
+import { auth } from '../../utils/firebase';
+import SearchMovie from '../dashboard/SearchMovie';
 
 const navigation = [
   // { name: 'Home', href: '#', current: true },
@@ -50,7 +51,7 @@ function classNames(...classes) {
       <div className="flex h-16 items-center justify-between">
         <div className="flex items-center">
           <div className="shrink-0">
-            <img alt="STech Solution" src={STechLogo} className="size-20" />
+            <img alt="STech Solution" src={STechLogo} className="size-16" />
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
@@ -73,17 +74,7 @@ function classNames(...classes) {
         </div>
         {/* Search Bar */}
         <div className="md:block md:w-1/2">
-        <div className="relative mx-4">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6"
-          />
-
-          <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-            <MagnifyingGlassIcon className="size-5 text-gray-400" aria-hidden="true" />
-          </div>
-        </div>
+            <SearchMovie />
         </div>
         
         <div className="hidden md:block">

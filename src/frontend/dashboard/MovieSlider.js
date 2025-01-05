@@ -39,9 +39,9 @@ const MovieSlider = (props) => {
   }, []);
 
   return (
-    <div className="relative bg-gray-900 md:p-2">
-      <h2 className="text-xl md:text-2xl font-bold text-white mb-4 ml-2">{title}</h2>
-      <hr className='mb-3'/>
+    <div className="relative md:p-2">
+      <h2 className="text-xl md:text-1xl font-bold text-white mb-4 ml-2">{title}</h2>
+      {/* <hr className='mb-3'/> */}
 
 
       <div className="group relative">
@@ -80,6 +80,7 @@ const MovieSlider = (props) => {
           </button>
         )}
       </div>
+      <hr className="mt-2"/>
     </div>
   );
 };

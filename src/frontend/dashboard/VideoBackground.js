@@ -7,7 +7,6 @@ const VideoBackground = (props) => {
     useVideoBackground(nowPlayingMovies);
     const trailer = useSelector((state) => state.movies?.trailerVideo);
 
-
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden">
           <iframe
@@ -15,7 +14,7 @@ const VideoBackground = (props) => {
             src={`https://www.youtube.com/embed/${trailer?.key}?autoplay=${hasPlay}&mute=${hasMuted}&controls=1&loop=1`}
             title={trailer?.name}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
+            referrerPolicy="strict-origin-when-cross-origin" 
           ></iframe>
 
           {/* Gradient Overlay */}

@@ -40,12 +40,12 @@ const VideoContent = (props) => {
   );
   return (
     <div className="relative z-10 flex flex-col justify-center h-full px-4 md:px-12 max-w-3xl">
-    <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+    <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
       {nowPlayingMovies?.title}
     </h1>
     
     {/* Only show overview on larger screens */}
-    <p className="md:block text-lg text-gray-200 mb-8">
+    <p className="md:block text-14px text-gray-200 mb-8">
       {nowPlayingMovies?.overview}
     </p>
 
@@ -79,7 +79,7 @@ const VideoContent = (props) => {
     {/* Mute Toggle */}
     <button
       onClick={() => setHasMuted(!hasMuted)}
-      className="absolute bottom-8 right-8 p-2 bg-red-600 bg-opacity-50 hover:bg-opacity-75 rounded-full"
+      className="absolute bottom-28 right-8 p-2 bg-red-600 bg-opacity-50 hover:bg-opacity-75 rounded-full"
     >
       {hasMuted ? (
         <svg

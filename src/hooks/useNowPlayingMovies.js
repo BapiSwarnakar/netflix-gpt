@@ -10,7 +10,6 @@ const useNowPlayingMovies = () => {
     
     const getNowPlaying = useCallback(async () => {
         const response = await axios.get("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",TMDB_API_HEADER);
-        console.log(response);
         dispatch(addNowPlayingMovies(response.data.results));
     },[dispatch]);
 
