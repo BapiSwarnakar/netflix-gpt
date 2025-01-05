@@ -10,7 +10,6 @@ const VideoBackground = (props) => {
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden">
-        <div className="relative w-full h-full">
           <iframe
             className="absolute top-1/2 left-1/2 w-[100vw] h-[56.25vw] min-h-screen min-w-[177.77vh] -translate-x-1/2 -translate-y-1/2"
             src={`https://www.youtube.com/embed/${trailer?.key}?autoplay=${hasPlay}&mute=${hasMuted}&controls=1&loop=1`}
@@ -21,7 +20,6 @@ const VideoBackground = (props) => {
 
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent opacity-90" />
-        </div>
     </div>
   );
 };

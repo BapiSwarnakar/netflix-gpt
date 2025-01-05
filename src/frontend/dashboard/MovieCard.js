@@ -2,13 +2,14 @@ import { Play, Info, Star } from 'lucide-react';
 
 const MovieCard = (props) => {
     const { movie } = props;
+    console.log(movie);
     return (
-      <div className="group/item relative flex-none transition-all duration-300 ease-in-out">
+      <div className="group/item relative flex-none transition-all duration-300 ease-in-out w-32">
         {/* Base Card */}
         <div className="relative rounded-lg overflow-hidden transition-all duration-300 group-hover/item:shadow-xl group-hover/item:scale-110 group-hover/item:z-50">
           {/* Movie Poster */}
           <img
-            src={`https://image.tmdb.org/t/p/w200/1E5baAaEse26fej7uHcjOgEE2t2.jpg`}
+            src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
             alt={movie.title}
             className="w-full h-auto rounded-lg object-cover"
           />
@@ -29,7 +30,7 @@ const MovieCard = (props) => {
               </div>
   
               {/* Genre */}
-              <p className="text-xs text-gray-300 mb-3 hidden md:block">{movie.genre}</p>
+              <p className="text-xs text-gray-300 mb-3 md:block">{movie.genre}</p>
   
               {/* Action Buttons */}
               <div className="flex gap-2">

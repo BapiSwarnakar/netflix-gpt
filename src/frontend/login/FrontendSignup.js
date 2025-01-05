@@ -11,12 +11,20 @@ const FrontendSignup = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false); // Loading state
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
+
+  const validationForm = () => {
+    if (formData.name === "" || formData.email === "" || formData.password === "") { 
+      return "Name , Email and password are required";
+    }
+    return null;
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,27 +36,29 @@ const FrontendSignup = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    const idValid = validationForm();
+    if(idValid != null){
+      setError(idValid);
+      return;
+    }
+    setLoading(true);
     createUserWithEmailAndPassword(auth, formData.email, formData.password)
     .then((userCredential) => {
       // Signed up 
-      const user = userCredential.user;
-      console.log("User signed up:", user);
       updateName(formData.name);
-      navigate("/dashboard");
+      navigate("/browse");
     })
     .catch((error) => {
-      const errorCode = error.code;
       const errorMessage = error.message;
-      alert(errorMessage + " - " + errorCode);
+      setError(errorMessage);
+      setLoading(false);
     });
   };
 
   const updateName = (name) => { 
     updateProfile(auth.currentUser, {
-      displayName: name , photoURL: "https://fastly.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U"
+      displayName: name , photoURL: "https://ui-avatars.com/api/?name="+name
     }).then(() => {
-      console.log("Name updated");
       const { displayName, email, uid, photoURL } = auth.currentUser;
       dispatch(addUser({ displayName, email, uid, photoURL }));
     }).catch((error) => {
@@ -116,13 +126,18 @@ const FrontendSignup = () => {
               />
             </div>
           </div>
-
+          {error && (
+            <div className="text-red-500 text-sm/6 font-semibold text-center">
+              {error}
+            </div>
+          )}
           <div>
             <button
               type="submit"
               className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+              disabled={loading}
             >
-              Sign up
+              { loading ? 'Processing...' : 'Sign up' }
             </button>
           </div>
         </form>

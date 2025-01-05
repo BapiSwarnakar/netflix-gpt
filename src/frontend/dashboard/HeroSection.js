@@ -12,10 +12,10 @@ const HeroSection = () => {
   if(!nowPlayingMovies) return null;
   const nowPlayingFirstMovie = nowPlayingMovies[0];
   return (
-    <>
+    <div className="relative w-full h-screen">
       <VideoBackground hasMuted = {isMuted} hasPlay = {isPlaying} nowPlayingMovies = {nowPlayingFirstMovie} />
       <VideoContent hasMuted = {isMuted} setHasMuted = {setIsMuted} hasPlay = {isPlaying} setHasPlay = {setIsPlaying} nowPlayingMovies = {nowPlayingFirstMovie} />
-    </>
+    </div>
   )
 }
 

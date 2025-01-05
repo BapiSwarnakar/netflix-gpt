@@ -26,11 +26,8 @@ const SetRoute = () => {
           });
     }, [dispatch]);
 
-    return (
-        <div>
-            <RouterProvider router={combinedRoutes} />
-        </div>
-    )
+    return <RouterProvider router={combinedRoutes} />
+     
 }
 
 export default SetRoute;

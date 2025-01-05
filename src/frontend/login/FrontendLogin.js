@@ -7,12 +7,12 @@ import backgroundImage from "../../assets/images/background.jpg";
 const FrontendLogin = () => {
 
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false); // Loading state
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,6 +29,7 @@ const FrontendLogin = () => {
       setError(idValid);
       return;
     }
+    setLoading(true);
     signInWithEmailAndPassword(auth, formData.email, formData.password)
     .then((userCredential) => {
       // navigate("/dashboard");
@@ -36,6 +37,7 @@ const FrontendLogin = () => {
     })
     .catch((error) => {
       setError("Invalid email or password");
+      setLoading(false);
     });
 
   };
@@ -118,8 +120,9 @@ const FrontendLogin = () => {
             <button
               type="submit"
               className="flex w-full justify-center rounded-md bg-red-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+              disabled={loading}
             >
-              Sign in
+               { loading ? 'Processing...' : 'Sign in' }
             </button>
           </div>
         </form>

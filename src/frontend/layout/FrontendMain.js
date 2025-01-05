@@ -6,12 +6,12 @@ import FrontendFooter from './FrontendFooter'
 const FrontendMain = (props) => {
   const {element} = props;
   return (
-     <div className="min-h-full"> 
+     <div className="min-h-screen flex flex-col"> 
         <FrontendHeader />
-        <main>
+        <main className="flex-grow">
           <FrontendBody element = {element} />
-          <FrontendFooter />
         </main>
+          <FrontendFooter />
     </div>
   )
 }

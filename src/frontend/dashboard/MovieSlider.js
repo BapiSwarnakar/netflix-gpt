@@ -23,24 +23,26 @@ const MovieSlider = (props) => {
     );
   };
 
-  const handleWheelScroll = (event) => {
-    event.preventDefault();
-    const slider = sliderRef.current;
-    slider.scrollBy({ left: event.deltaY, behavior: 'smooth' });
-  };
+  // const handleWheelScroll = (event) => {
+  //   event.preventDefault();
+  //   const slider = sliderRef.current;
+  //   slider.scrollBy({ left: event.deltaY, behavior: 'smooth' });
+  // };
 
   useEffect(() => {
-    const slider = sliderRef.current;
-    slider.addEventListener('wheel', handleWheelScroll);
+    // const slider = sliderRef.current;
+    // slider.addEventListener('wheel', handleWheelScroll);
 
-    return () => {
-      slider.removeEventListener('wheel', handleWheelScroll);
-    };
+    // return () => {
+    //   slider.removeEventListener('wheel', handleWheelScroll);
+    // };
   }, []);
 
   return (
-    <div className="relative px-4 md:px-8 py-8 bg-black">
-      <h2 className="text-xl md:text-3xl font-bold text-white mb-4 ml-2">{title}</h2>
+    <div className="relative bg-gray-900 md:p-2">
+      <h2 className="text-xl md:text-2xl font-bold text-white mb-4 ml-2">{title}</h2>
+      <hr className='mb-3'/>
+
 
       <div className="group relative">
         {showLeftButton && (
@@ -59,7 +61,7 @@ const MovieSlider = (props) => {
             ref={sliderRef}
             className="flex gap-2 md:gap-4 overflow-x-scroll scrollbar-hide scroll-smooth py-2"
             onScroll={handleSliderScroll}
-            style={{ height: '400px' }} // Example fixed height
+            style={{ height: '210px',scrollbarWidth: 'none'}} // Example fixed height
           >
             {movies.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
