@@ -14,7 +14,7 @@ const HeroSection = () => {
   return (
     <div className="relative w-full h-screen">
       <VideoBackground hasMuted = {isMuted} hasPlay = {isPlaying} nowPlayingMovies = {nowPlayingFirstMovie} />
-      <VideoContent hasMuted = {isMuted} setHasMuted = {setIsMuted} hasPlay = {isPlaying} setHasPlay = {setIsPlaying} nowPlayingMovies = {nowPlayingFirstMovie} />
+      <VideoContent isControl={true} hasMuted = {isMuted} setHasMuted = {setIsMuted} hasPlay = {isPlaying} setHasPlay = {setIsPlaying} nowPlayingMovies = {nowPlayingFirstMovie} />
     </div>
   )
 }

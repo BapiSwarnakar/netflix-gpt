@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import STechLogo from '../../assets/images/STechRemovebg.png';
 import { auth } from '../../utils/firebase';
-import SearchMovie from '../dashboard/SearchMovie';
+import Search from '../dashboard/Search';
 
 const navigation = [
   // { name: 'Home', href: '#', current: true },
@@ -51,7 +51,7 @@ function classNames(...classes) {
       <div className="flex h-16 items-center justify-between">
         <div className="flex items-center">
           <div className="shrink-0">
-            <img alt="STech Solution" src={STechLogo} className="size-16" />
+            <Link to="/browse"><img alt="STech Solution" src={STechLogo} className="size-16" /></Link>
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
@@ -74,7 +74,7 @@ function classNames(...classes) {
         </div>
         {/* Search Bar */}
         <div className="md:block md:w-1/2">
-            <SearchMovie />
+            <Search />
         </div>
         
         <div className="hidden md:block">

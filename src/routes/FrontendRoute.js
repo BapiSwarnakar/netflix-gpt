@@ -4,6 +4,7 @@ import FrontendLogin from '../frontend/login/FrontendLogin';
 import FrontendSignup from '../frontend/login/FrontendSignup';
 import FrontendMain from '../frontend/layout/FrontendMain';
 import Browse from '../frontend/dashboard/Browse';
+import SearchMovie from '../frontend/dashboard/SearchMovie';
 
 
 
@@ -24,6 +25,11 @@ const FrontendRoute = () => {
             path: '/browse',
             element:  <FrontendMain element={<Browse/>} />,
             id: 'browse'
+        },
+        {
+            path: '/search',
+            element:  <FrontendMain element={<SearchMovie/>} />,
+            id: 'search'
         }
     ]);
 
