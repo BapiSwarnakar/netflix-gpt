@@ -1,11 +1,22 @@
-import React from 'react'
+import React from "react";
+import useVideoBackground from "../../hooks/useVideoBackground";
+import { useSelector } from "react-redux";
+const SearchVideo = (props) => {
+  const { nowPlayingMovies, hasMuted, hasPlay } = props;
+  useVideoBackground(nowPlayingMovies);
+  const trailer = useSelector((state) => state.movies?.trailerVideo);
 
-const SearchVideo = () => {
   return (
-    <div>
-      
+    <div className="w-full h-full inset-0">
+      <iframe
+        className="w-full h-full object-cover"
+        src={`https://www.youtube.com/embed/${trailer?.key}?autoplay=${hasPlay}&mute=${hasMuted}&controls=1&loop=1`}
+        title={trailer?.name}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerPolicy="strict-origin-when-cross-origin"
+      ></iframe>
     </div>
-  )
-}
+  );
+};
 
-export default SearchVideo
+export default SearchVideo;

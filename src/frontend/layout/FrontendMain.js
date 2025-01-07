@@ -6,7 +6,7 @@ import FrontendFooter from './FrontendFooter'
 const FrontendMain = (props) => {
   const {element} = props;
   return (
-     <div className="min-h-screen flex flex-col bg-gray-900 "> 
+     <div className="min-h-screen flex flex-col bg-black "> 
         <FrontendHeader />
         <main className="flex-grow">
           <FrontendBody element = {element} />
