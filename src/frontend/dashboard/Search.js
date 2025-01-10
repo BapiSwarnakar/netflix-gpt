@@ -1,17 +1,15 @@
-import axios from 'axios';
 import React, { useState } from 'react';
-import { TMDB_API_HEADER } from '../../utils/constant';
-import { useDispatch, useSelector } from 'react-redux';
-import { addSearchMovies } from '../../utils/slice/movieSlice';
+import {  useSelector } from 'react-redux';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
+import useSearchMovie from '../../hooks/useSearchMovie';
 
 const Search = () => {
-  const dispatch = useDispatch();
   const [searchMovie, setSearchMovie] = useState('');
   const [showResults, setShowResults] = useState(false);
   const getSearchMovies = useSelector((state)=> state.movies.searchMovies);
-
+  const getSearchMovie = useSearchMovie();
+  
   const handleSearch = async (e) => {
     setSearchMovie(e.target.value);
     if(!e.target.value.length){
@@ -33,11 +31,7 @@ const Search = () => {
   };
 
 
-  const getSearchMovie = async (searchValue) =>{
-    const response = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${searchValue}&include_adult=false&language=en-US&page=1`, TMDB_API_HEADER);
-    dispatch(addSearchMovies(response?.data?.results));
-  } 
-
+ 
   const handleSearchPopup = () => {
     setShowResults(false);
     setSearchMovie('');
@@ -76,7 +70,7 @@ const Search = () => {
             />
           </div>
           <div>
-            <Link to={`/search?key=${movie.id}&title=${movie.title}`} onClick={handleSearchPopup} class="font-semibold text-white">
+            <Link to={`/search/${movie.id}?title=${movie.title}`} onClick={handleSearchPopup} class="font-semibold text-white">
               {movie.title}
               <span class="absolute inset-0"></span>
             </Link>

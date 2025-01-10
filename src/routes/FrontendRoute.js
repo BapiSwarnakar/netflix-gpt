@@ -27,7 +27,7 @@ const FrontendRoute = () => {
             id: 'browse'
         },
         {
-            path: '/search',
+            path: '/search/:movieId?',
             element:  <FrontendMain element={<SearchMovie/>} />,
             id: 'search'
         }

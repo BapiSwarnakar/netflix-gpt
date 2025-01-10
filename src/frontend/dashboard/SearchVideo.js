@@ -2,10 +2,10 @@ import React from "react";
 import useVideoBackground from "../../hooks/useVideoBackground";
 import { useSelector } from "react-redux";
 const SearchVideo = (props) => {
-  const { nowPlayingMovies, hasMuted, hasPlay } = props;
-  useVideoBackground(nowPlayingMovies);
+  const { playMovie, hasMuted, hasPlay } = props;
+  useVideoBackground(playMovie);
   const trailer = useSelector((state) => state.movies?.trailerVideo);
-
+  console.log(trailer);
   return (
     <div className="w-full h-full inset-0">
       <iframe

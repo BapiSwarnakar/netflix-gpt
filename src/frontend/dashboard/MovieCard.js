@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 
 const MovieCard = (props) => {
     const { movie } = props;
+    const scrollToClick = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
     return (
       <div className="group/item relative flex-none transition-all duration-300 ease-in-out w-32">
         {/* Base Card */}
@@ -34,7 +40,7 @@ const MovieCard = (props) => {
   
               {/* Action Buttons */}
               <div className="flex gap-2">
-                <Link to={`/search?key=${movie.id}&title=${movie.title}`} className="flex items-center justify-center bg-white text-black rounded-full p-1 md:p-2 hover:bg-gray-200 transition-colors">
+                <Link to={`/search/${movie.id}?title=${movie.title}`} onClick={scrollToClick} className="flex items-center justify-center bg-white text-black rounded-full p-1 md:p-2 hover:bg-gray-200 transition-colors">
                   <Play className="w-3 h-3 md:w-4 md:h-4" />
                 </Link>
                 <button className="flex items-center justify-center bg-gray-600/80 text-white rounded-full p-1 md:p-2 hover:bg-gray-500/80 transition-colors">
