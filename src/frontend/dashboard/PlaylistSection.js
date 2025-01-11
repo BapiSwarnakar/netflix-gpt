@@ -22,9 +22,8 @@ const PlaylistSection = (props) => {
         <h2 className="text-lg font-semibold text-white mb-4">Up Next</h2>
         <div className="space-y-3 max-h-[calc(100vh-2rem)] overflow-y-auto scrollbar-thin scrollbar-track-gray-800 scrollbar-thumb-gray-600">
           {playlistMovies?.map((movie) => (
-            <Link to={`/search/${movie.id}?title=${movie.title}`} onClick={scrollToClick}>
+            <Link key={movie.id} to={`/search/${movie.id}?title=${movie.title}`} onClick={scrollToClick}>
             <div
-              key={movie.id}
               className="flex gap-3 p-2 hover:bg-gray-800/50 rounded-lg cursor-pointer group"
             >
               

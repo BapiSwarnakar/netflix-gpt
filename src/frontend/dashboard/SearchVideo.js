@@ -5,7 +5,6 @@ const SearchVideo = (props) => {
   const { playMovie} = props;
   useVideoBackground(playMovie);
   const trailer = useSelector((state) => state.movies?.trailerVideo);
-  console.log(trailer);
   return (
     <div className="w-full h-full inset-0">
       <iframe
