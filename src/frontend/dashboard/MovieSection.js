@@ -8,7 +8,6 @@ const MovieSection = () => {
 	const movies = useSelector((state) => state.movies);
   
   const nowPlayingMovies = movies?.nowPlayingMovies;
-  if (!nowPlayingMovies) return null;
   
   const popularMovies = movies?.popularMovies;
 
