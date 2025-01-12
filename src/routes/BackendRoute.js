@@ -12,22 +12,22 @@ const BackendRoute = () => {
 
     const browserRouter = createBrowserRouter([
         {
-            path: '/admin/login',
+            path: '/netflix-gpt/admin/login',
             element: <Login/>,
             id: 'admin-login'
         },
         {
-            path: '/admin/dashboard',
+            path: '/netflix-gpt/admin/dashboard',
             element: <BackendMain element={<Dashboard/>} />,
             id: 'admin-dashboard'
         },
         {
-            path: '/admin/user/add',
+            path: '/netflix-gpt/admin/user/add',
             element: <BackendMain element={<AddUser/>} />,
             id: 'add-user'
         },
         {
-            path: '/admin/user/view',
+            path: '/netflix-gpt/admin/user/view',
             element: <BackendMain element={<ViewUser/>} />,
             id: 'view-user'
         }
