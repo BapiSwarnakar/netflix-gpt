@@ -12,22 +12,22 @@ const FrontendRoute = () => {
 
     const browserRouter = createBrowserRouter([
         {
-            path: '/netflix-gpt/',
+            path: '/',
             element: <FrontendLogin />,
             id: 'index'
         },
         {
-            path: '/netflix-gpt/signup',
+            path: '/signup',
             element:  <FrontendSignup />,
             id: 'signup'
         },
         {
-            path: '/netflix-gpt/browse',
+            path: '/browse',
             element:  <FrontendMain element={<Browse/>} />,
             id: 'browse'
         },
         {
-            path: '/netflix-gpt/search/:movieId?',
+            path: '/search/:movieId?',
             element:  <FrontendMain element={<SearchMovie/>} />,
             id: 'search'
         }
